@@ -29,6 +29,10 @@ Supported codecs and acceleration features depend on the selected encoder, GPU a
 
 Encoder-side VPP settings include crop, resize, padding, deinterlacing, denoising, sharpening, debanding, color conversion and HDR tone mapping where supported. AviSynth+ and VapourSynth provide source decoding, indexing and script-based processing. Audio processing and muxing are included.
 
+Audio processing with eac3to provides a dedicated settings dialog for W64, WAV, separate-channel WAVS, FLAC, RAW, PCM, LPCM and RF64 output. Existing compressed audio tracks can also be demuxed without re-encoding. Channel layout, PCM precision, sample rate, level and timing can be adjusted where applicable. The dialog includes a selectable “No second pass” option and a “No log” switch linked directly to eac3to.ini.
+
+The main window provides Edit, Run and Run all controls for audio processing. Run processes an individual track, while Run all processes multiple tracks and can combine them into one optional audio-only MKV file. Languages can be selected for individual tracks, and tracks can be reordered by drag-and-drop with a visual preview. The selected languages and track order are applied to the audio-only MKV output.
+
 ## Installation
 
 Extract the complete program archive into its own folder and launch `StaxRipNG.exe`. Keep `Apps`, `Fonts`, `Icons` and `Runtime` beside it. The bundled .NET runtime does not need to be installed separately.
@@ -70,16 +74,16 @@ If those changes are present in the original L5 metadata, DV-Offset scales the o
 
 ### How to use DV-Offset
 
-For Dolby Vision material with available L5 metadata, StaxRip exports `HDRDVmetadata_L5.json` to the HEVC output folder.
+The input must always be in a container format—MKV (.mkv), MPEG-TS (.ts) or M2TS (.m2ts/.mts)—and contain Dolby Vision RPU metadata with L5 active-area information so that automatic Dolby Vision detection and L5 metadata extraction work reliably. StaxRip exports `HDRDVmetadata_L5.json` to the HEVC output folder. Keep the encoded video output as a raw HEVC (.hevc) file for the DV-Offset step.
 
 1. Resize the video during encoding.
 2. Open **DV-Offset** from the main menu.
-3. Select the scaling operation, drag the matching `.hevc` file into the console and press Enter.
+3. Select the scaling operation, drag StaxRip's encoded raw `.hevc` output file into the console and press Enter.
 4. The tool adjusts the existing L5 offsets and writes the adjusted Dolby Vision RPU into a new file ending in `_DV.hevc`.
 
 HEVC output is currently supported; MKV support is planned.
 
-At the final deletion prompt, the original input HEVC file and the L5 JSON are deleted only if you confirm. The new output file is retained. Enter `n` to keep all files.
+Confirming the final deletion prompt deletes the encoded input HEVC, `HDRDVmetadata_L5.json` and `dovi_work`. The corrected `*_DV.hevc` is kept. Enter `n` to keep all files.
 
 ## Feedback
 

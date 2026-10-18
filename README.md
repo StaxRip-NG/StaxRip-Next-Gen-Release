@@ -29,9 +29,13 @@ Supported codecs and acceleration features depend on the selected encoder, GPU a
 
 Encoder-side VPP settings include crop, resize, padding, deinterlacing, denoising, sharpening, debanding, color conversion and HDR tone mapping where supported. AviSynth+ and VapourSynth provide source decoding, indexing and script-based processing. Audio processing and muxing are included.
 
-Audio processing with eac3to provides a dedicated settings dialog for W64, WAV, separate-channel WAVS, FLAC, RAW, PCM, LPCM and RF64 output. Existing compressed audio tracks can also be demuxed without re-encoding. Channel layout, PCM precision, sample rate, level and timing can be adjusted where applicable. The dialog includes a selectable “No second pass” option and a “No log” switch linked directly to eac3to.ini.
+Audio processing with eac3to provides a dedicated settings dialog with the following options:
 
-The main window provides Edit, Run and Run all controls for audio processing. Run processes an individual track, while Run all processes multiple tracks and can combine them into one optional audio-only MKV file. Languages can be selected for individual tracks, and tracks can be reordered by drag-and-drop with a visual preview. The selected languages and track order are applied to the audio-only MKV output.
+- Output formats: W64, WAV, separate-channel WAVS, FLAC, RAW, PCM, LPCM and RF64. Compressed audio tracks can also be demuxed without re-encoding.
+- Adjustments: channel layout, PCM precision, sample rate, level and timing, where applicable.
+- Processing options: “No second pass” and a “No log” switch linked directly to eac3to.ini.
+
+The main window provides Edit for track settings, Run for a single track and Run all for multiple tracks. An optional audio-only MKV can combine the processed tracks, using the languages selected for each track and the order set by drag-and-drop with a visual preview.
 
 ## Installation
 

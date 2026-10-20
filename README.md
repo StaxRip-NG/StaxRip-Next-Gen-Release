@@ -27,15 +27,21 @@ StaxRip Next Gen focuses on hardware video encoding with Intel Quick Sync (QSVEn
 
 Supported codecs and acceleration features depend on the selected encoder, GPU and driver.
 
+For VC-1 sources, select software-based input processing via AviSynth or VapourSynth in the encoder settings instead of Quick Sync hardware decoding. VC-1 is then decoded in software before encoding to the selected output codec; hardware encoding of the output can still be used.
+
 Encoder-side VPP settings include crop, resize, padding, deinterlacing, denoising, sharpening, debanding, color conversion and HDR tone mapping where supported. AviSynth+ and VapourSynth provide source decoding, indexing and script-based processing. Audio processing and muxing are included.
 
 Audio processing with eac3to provides a dedicated settings dialog with the following options:
 
-- Output formats: W64, WAV, separate-channel WAVS, FLAC, RAW, PCM, LPCM and RF64. Compressed audio tracks can also be demuxed without re-encoding.
+- Output formats: W64, WAV, separate-channel WAVS, FLAC, RAW, PCM, LPCM and RF64. AC3, EAC3 and DTS encoding is also integrated. Compressed audio tracks can also be demuxed without re-encoding.
 - Adjustments: channel layout, PCM precision, sample rate, level and timing, where applicable.
 - Processing options: “No second pass” and a “No log” switch linked directly to eac3to.ini.
 
 The main window provides Edit for track settings, Run for a single track and Run all for multiple tracks. An optional audio-only MKV can combine the processed tracks, using the languages selected for each track and the order set by drag-and-drop with a visual preview.
+
+For source input, container formats are recommended: preferably MKV (.mkv), or M2TS (.m2ts/.mts) and MPEG-TS (.ts). They allow metadata and any audio delays stored in the source to be detected correctly.
+
+For Dolby Vision workflows, MKV is the recommended input container. With M2TS or TS input, Dolby Vision data is extracted separately and is not automatically included in the encoded video output.
 
 ## Installation
 

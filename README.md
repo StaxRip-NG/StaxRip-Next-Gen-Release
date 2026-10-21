@@ -39,6 +39,12 @@ Audio processing with eac3to provides a dedicated settings dialog with the follo
 
 The main window provides Edit for track settings, Run for a single track and Run all for multiple tracks. An optional audio-only MKV can combine the processed tracks, using the languages selected for each track and the order set by drag-and-drop with a visual preview.
 
+Cavernize is available in Apps and in the audio profile menu. Select Cavernize and use Edit to open its standalone GUI, with a separate bundled .NET 8 Desktop Runtime.
+
+- Dolby Atmos: decode and render supported E-AC3/JOC and TrueHD tracks to a selected speaker layout for further audio processing.
+- PCM output: WAV, W64, separate-channel WAVS and audio-only Matroska (MKA), with 24-bit PCM and optional linked peak normalization across all channels.
+- Independent workflow: select the input, rendering settings and output location in Cavernize. Rendered files are saved separately and are not automatically added to the StaxRip job.
+
 For source input, container formats are recommended: preferably MKV (.mkv), or M2TS (.m2ts/.mts) and MPEG-TS (.ts). They allow metadata and any audio delays stored in the source to be detected correctly.
 
 For Dolby Vision workflows, MKV is the recommended input container. With M2TS or TS input, Dolby Vision data is extracted separately and is not automatically included in the encoded video output.
@@ -108,3 +114,5 @@ In memory of stax76, the original developer of StaxRip. His work forms the found
 ## License
 
 The application source is licensed under the MIT License. The full license text is included in the source archive. Bundled third-party tools are subject to their respective licenses..
+
+[Cavern / Cavernize](https://cavern.sbence.hu/cavern/) is developed by [Bence Sgánetz](http://en.sbence.hu). Its integration and redistribution, including the adaptations used here, have been explicitly permitted by the author on the condition that no advertising is included. Cavernize must remain free to download and must not be sold. Its original credits, project links, licence terms and warranty disclaimer are retained in the included documentation. This permission does not replace the licences of StaxRip or other bundled tools.

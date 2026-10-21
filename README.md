@@ -1,0 +1,120 @@
+# StaxRip Next Gen Release
+
+<p align="center">
+  <a href="StaxRipNG.png"><img src="StaxRipNG.png" alt="StaxRip NG" width="320"></a>
+</p>
+
+**Portable Windows application with bundled .NET 10.**
+
+StaxRip Next Gen focuses on hardware video encoding with Intel Quick Sync (QSVEncC), NVIDIA (NVEncC) and AMD (VCEEncC), alongside HDR and Dolby Vision workflows. Software encoding can also be used where supported by the selected encoder within the application.
+
+## What's new
+
+- Dolby Vision: DV-Offset now detects Auto-Crop. DV-Offset is available directly from the main menu. When the top and bottom black bars are fully removed, the adjusted L5 Top and Bottom values are zero and remain zero during scaling.
+- Next Gen UI with a consistent dark appearance, rounded controls and compact filter, resolution and encoder areas. Includes smooth blue click effects on buttons and navigation entries.
+- Independent audio-track areas with scrolling when needed.
+- Clear resolution information and an indication of whether AviSynth or VapourSynth is being used.
+- Improved search fields, audio buttons and processing-output colors.
+- Logs archived in the selected settings folder after opening a source and after processing a job.
+- Four settings locations: program folder, AppData, ProgramData or a custom folder. A valid saved location is reused; when it is missing, the selection appears again.
+- Bundled .NET 10 runtime and portable launcher.
+
+## Hardware encoding and VPP
+
+- **Intel Quick Sync:** QSVEncC.
+- **NVIDIA:** NVEncC.
+- **AMD:** VCEEncC.
+
+Supported codecs and acceleration features depend on the selected encoder, GPU and driver.
+
+For VC-1 sources, select software-based input processing via AviSynth or VapourSynth in the encoder settings instead of Quick Sync hardware decoding. VC-1 is then decoded in software before encoding to the selected output codec; hardware encoding of the output can still be used.
+
+Encoder-side VPP settings include crop, resize, padding, deinterlacing, denoising, sharpening, debanding, color conversion and HDR tone mapping where supported. AviSynth+ and VapourSynth provide source decoding, indexing and script-based processing. Audio processing and muxing are included.
+
+Audio processing with eac3to provides a dedicated settings dialog with the following options:
+
+- Output formats: W64, WAV, separate-channel WAVS, FLAC, RAW, PCM, LPCM and RF64. AC3, EAC3 and DTS encoding is also integrated. Compressed audio tracks can also be demuxed without re-encoding.
+- Adjustments: channel layout, PCM precision, sample rate, level and timing, where applicable.
+- Processing options: “No second pass” and a “No log” switch linked directly to eac3to.ini.
+
+The main window provides Edit for track settings, Run for a single track and Run all for multiple tracks. An optional audio-only MKV can combine the processed tracks, using the languages selected for each track and the order set by drag-and-drop with a visual preview.
+
+Cavernize is available in Apps and in the audio profile menu. Select Cavernize and use Edit to open its standalone GUI, with a separate bundled .NET 8 Desktop Runtime.
+
+- Source handoff: select Cavernize for an audio track in StaxRip and click Edit to open its assigned source file directly in the Cavernize GUI. For sources containing multiple audio tracks, the track selected in StaxRip is also selected in Cavernize.
+- Supported sources: AC3, EAC3 (including JOC/Atmos) and TrueHD (including Atmos). StaxRip checks the detected audio codec before handing over the source; DTS and other formats are rejected.
+- Dolby Atmos rendering: decode supported E-AC3/JOC and TrueHD Atmos streams, including bed channels and spatial audio objects, and render them to the selected speaker layout. All channels of that layout can be included in the output, including height channels when selected.
+- PCM export: save the complete rendered channel layout as multichannel WAV or W64, or as separate-channel WAVS with one WAV file per rendered channel. Audio-only Matroska (MKA), 24-bit PCM and optional linked peak normalization across all channels are also available.
+- Independent workflow: choose the rendering settings and start Render in Cavernize, which prompts for the output location. The handoff does not start processing through StaxRip's Run or Run all controls. Rendered files are saved separately and are not automatically added to the StaxRip job.
+
+For source input, container formats are recommended: preferably MKV (.mkv), or M2TS (.m2ts/.mts) and MPEG-TS (.ts). They allow metadata and any audio delays stored in the source to be detected correctly.
+
+For Dolby Vision workflows, MKV is the recommended input container. With M2TS or TS input, Dolby Vision data is extracted separately and is not automatically included in the encoded video output.
+
+## Installation
+
+Extract the complete program archive into its own folder and launch `StaxRipNG.exe`. Keep `Apps`, `Fonts`, `Icons` and `Runtime` beside it. The bundled .NET runtime does not need to be installed separately.
+
+Choose a settings location on first launch. Keep the source archive separate from the program folder.
+
+Requirements: 64-bit Windows, suitable hardware and drivers for the selected encoder, and any Visual C++ runtime libraries required by the bundled tools.
+
+## Dolby Vision L5 metadata and DV-Offset
+
+### What does L5 describe?
+
+L5 metadata describes the visible picture area within the complete video frame. Black bars are outside this active area. Four offset values give the distances from the left, right, top and bottom edges of the frame to the visible picture.
+
+```text
+3840 × 2160 complete frame
+┌───────────────────────┐
+│█████ black bars ██████│
+│                       │
+│     Movie picture     │
+│                       │
+│█████ black bars ██████│
+└───────────────────────┘
+```
+
+When the video is resized, these pixel distances must be scaled accordingly. For example, a 3840 × 2160 frame with top and bottom offsets of 280 pixels has an active area of 3840 × 1600. At 1920 × 1080, the offsets become 140 pixels and the active area becomes 1920 × 800.
+
+### Supported resolutions
+
+The workflow is designed for UHD (3840 × 2160), Full HD (1920 × 1080) and HD (1280 × 720). The complete 16:9 frame and the relative position of the visible picture are preserved.
+
+The existing Dolby Vision mastering is reused. DV-Offset adjusts the L5 geometry; it does not create a new Dolby Vision master or calculate new creative brightness or color adjustments.
+
+### Changing picture formats
+
+Films with changing picture formats, such as a corresponding version of Top Gun: Maverick, can have different active picture areas in different scenes.
+
+If those changes are present in the original L5 metadata, DV-Offset scales the offsets for the respective sections. At half resolution, for example, 280 pixels become 140 pixels and 68 pixels become 34 pixels. These numbers illustrate the principle and are not measured values from the film.
+
+### How to use DV-Offset
+
+The input must always be in a container format-MKV (.mkv), MPEG-TS (.ts) or M2TS (.m2ts/.mts)-and contain Dolby Vision RPU metadata with L5 active-area information so that automatic Dolby Vision detection and L5 metadata extraction work reliably. StaxRip exports `HDRDVmetadata_L5.json` to the HEVC output folder. Keep the encoded video output as a raw HEVC (.hevc) file for the DV-Offset step.
+
+1. Resize the video before starting the encoding process.
+2. Open **DV-Offset** from the main menu.
+3. Select the scaling operation, drag StaxRip's encoded raw `.hevc` output file into the console and press Enter.
+4. The tool adjusts the existing L5 offsets and writes the adjusted Dolby Vision RPU into a new file ending in `_DV.hevc`.
+
+HEVC output is currently supported; MKV support is planned.
+
+Confirming the final deletion prompt deletes the encoded input HEVC, `HDRDVmetadata_L5.json` and `dovi_work`. The corrected `*_DV.hevc` is kept. Enter `n` to keep all files.
+
+## Feedback
+
+Use [Issues](../../issues) for bug reports and [Discussions](../../discussions) for questions and suggestions. For a bug report, include the application version, encoder, GPU, source format and a relevant log excerpt.
+
+## Origins and acknowledgements
+
+StaxRip Next Gen is developed by Roadrunner and is based on [StaxRip](https://github.com/staxrip/staxrip).
+
+In memory of stax76, the original developer of StaxRip. His work forms the foundation of this project. Thanks to all previous contributors.
+
+## License
+
+The application source is licensed under the MIT License. The full license text is included in the source archive. Bundled third-party tools are subject to their respective licenses..
+
+[Cavern / Cavernize](https://cavern.sbence.hu/cavern/) is developed by [Bence Sgánetz](http://en.sbence.hu). Its integration and redistribution, including the adaptations used here, have been explicitly permitted by the author on the condition that no advertising is included. Cavernize must remain free to download and must not be sold. Its original credits, project links, licence terms and warranty disclaimer are retained in the included documentation. This permission does not replace the licences of StaxRip or other bundled tools.

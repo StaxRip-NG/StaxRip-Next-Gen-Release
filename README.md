@@ -41,9 +41,11 @@ The main window provides Edit for track settings, Run for a single track and Run
 
 Cavernize is available in Apps and in the audio profile menu. Select Cavernize and use Edit to open its standalone GUI, with a separate bundled .NET 8 Desktop Runtime.
 
+- Source handoff: select Cavernize for an audio track in StaxRip and click Edit to open its assigned source file directly in the Cavernize GUI. For sources containing multiple audio tracks, the track selected in StaxRip is also selected in Cavernize.
+- Supported sources: AC3, EAC3 (including JOC/Atmos) and TrueHD (including Atmos). StaxRip checks the detected audio codec before handing over the source; DTS and other formats are rejected.
 - Dolby Atmos rendering: decode supported E-AC3/JOC and TrueHD Atmos streams, including bed channels and spatial audio objects, and render them to the selected speaker layout. All channels of that layout can be included in the output, including height channels when selected.
 - PCM export: save the complete rendered channel layout as multichannel WAV or W64, or as separate-channel WAVS with one WAV file per rendered channel. Audio-only Matroska (MKA), 24-bit PCM and optional linked peak normalization across all channels are also available.
-- Independent workflow: select the input, rendering settings and output location in Cavernize. Rendered files are saved separately and are not automatically added to the StaxRip job.
+- Independent workflow: choose the rendering settings and start Render in Cavernize, which prompts for the output location. The handoff does not start processing through StaxRip's Run or Run all controls. Rendered files are saved separately and are not automatically added to the StaxRip job.
 
 For source input, container formats are recommended: preferably MKV (.mkv), or M2TS (.m2ts/.mts) and MPEG-TS (.ts). They allow metadata and any audio delays stored in the source to be detected correctly.
 

@@ -41,8 +41,8 @@ The main window provides Edit for track settings, Run for a single track and Run
 
 Cavernize is available in Apps and in the audio profile menu. Select Cavernize and use Edit to open its standalone GUI, with a separate bundled .NET 8 Desktop Runtime.
 
-- Dolby Atmos: decode and render supported E-AC3/JOC and TrueHD tracks to a selected speaker layout for further audio processing.
-- PCM output: WAV, W64, separate-channel WAVS and audio-only Matroska (MKA), with 24-bit PCM and optional linked peak normalization across all channels.
+- Dolby Atmos rendering: decode supported E-AC3/JOC and TrueHD Atmos streams, including bed channels and spatial audio objects, and render them to the selected speaker layout. All channels of that layout can be included in the output, including height channels when selected.
+- PCM export: save the complete rendered channel layout as multichannel WAV or W64, or as separate-channel WAVS with one WAV file per rendered channel. Audio-only Matroska (MKA), 24-bit PCM and optional linked peak normalization across all channels are also available.
 - Independent workflow: select the input, rendering settings and output location in Cavernize. Rendered files are saved separately and are not automatically added to the StaxRip job.
 
 For source input, container formats are recommended: preferably MKV (.mkv), or M2TS (.m2ts/.mts) and MPEG-TS (.ts). They allow metadata and any audio delays stored in the source to be detected correctly.
